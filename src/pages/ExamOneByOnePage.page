@@ -1,0 +1,276 @@
+<apex:page controller="ExamPageController"
+           sidebar="false"
+           showheader="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           standardStylesheets="false"
+>
+
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Exam</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+
+        <apex:slds />
+
+    </head>
+
+    <style>
+
+body{
+font-family: 'Salesforce Sans',Arial,sans-serif;
+position: relative;
+background-color: rgb(244, 246, 249);
+border-width: 1px;
+}
+
+p.surveyheader{
+    font-weight: 300;
+    font-size: 5rem;
+    line-height: 1.25;
+}
+
+.slds-text-heading_large{
+  text-align: center;
+  font-size: 1.75rem;
+/*  margin-bottom: 15px;
+*/}
+
+/*.container{
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: rgb(216, 221, 230);
+    padding: 1rem 1.5rem 1rem 1.5rem;
+}*/
+
+#j_id0:j_id4:FullExam:examQuestion_1.questions{
+    font-size: 1.3rem;
+    font-weight: 300;
+    border-top: solid;
+    border-width: 1px;
+    border-color: rgb(216, 221, 230);
+    padding: 1rem 1.5rem 1rem;
+    margin-bottom: 10px;
+}
+
+.questions{
+    font-size: 2rem;
+    font-weight: 300;
+/*    border-top: solid;
+*/    border-width: 1px;
+    border-color: rgb(216, 221, 230);
+    padding: 1rem 1.5rem 1rem;
+    margin: 0 0 5px 0;
+    display: inline;
+
+}
+
+.choices{
+font-size: 1.75rem;
+margin-left: 30px;
+font-weight: normal;
+display: block;
+}
+
+td{
+    display: block;
+    font-size: 1.75rem;
+}
+
+label{
+  font-size: 1.75rem;
+  font-weight: 300;
+}
+
+.choices input[type=radio], .choices input[type=checkbox]{
+margin-right: 15px;
+}
+
+
+.btn.btn-default{
+    height: 35px;
+    width: 80px;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 25px;
+    margin-right: 5px;
+    float: left;
+    color: rgb(0, 95, 178);
+    background-color: white;
+    border: 1px solid rgb(216, 221, 230);
+    background-color: rgb(255, 255, 255);
+    transition: color .1s linear;
+}
+
+.btn.btn-default:hover{
+  background-color: #f7f9fb;
+}
+
+.btn.btn-primary{
+    height: 35px;
+    width: 80px;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 25px;
+    margin-right: 5px;
+    float: right;
+    background-color: rgb(0, 112, 210);
+    border: 1px solid rgb(0, 112, 210);
+    color: rgb(255, 255, 255);
+}
+
+input.btn.btn-primary:hover{
+  background-color: rgb(0, 95, 178);
+}
+
+p#timer{
+  font-size: 2rem;
+  font-weight: 300;
+/*  float: right;
+  margin-right: 20px;*/
+}
+
+p.timerP{
+  font-size: 2rem;
+  margin-right: 10px;
+  font-weight: 300;
+  margin-bottom: 10px;
+/*  float:right;
+  margin-right: 20px;*/
+}
+
+.timerContainer{
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  margin-bottom: 25px;
+}
+
+.slds-col{
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+  display: fixed;
+}
+
+.questionNumber{
+  display: block;
+}
+
+.well{
+  height: 90;
+}
+
+.hidden{display:none !important}
+</style>
+
+    <body>
+    <div class="slds-scope">
+        <div class="well well-lg">
+
+            <div class="jumbotron text-center">
+                <p class="surveyheader">{!survey.name}</p>
+                <div class="slds-text-heading_large">{!NumQuestions} questions</div>
+
+            </div>
+
+            <div class="container">
+                <div class="timerContainer {!IF(ISBLANK(endTime), 'hidden', '')}">
+                    <p class = 'timerP'>Timer:<p id="timer">0m 0s</p></p>
+                </div>
+
+                <div class="slds-form-element">
+                    <apex:form rendered="{!NOT(isFilled)}">
+                        <apex:actionFunction name="submit" action="{!submit}" />
+                        <apex:pageBlock id="OneByOneExam">
+
+                            <div class="questionNumber">
+                                <apex:outputLabel value="{!currentQues}."/>
+                                <apex:dynamicComponent id="examOneQuestion" componentValue="{!QuestionOneByOne}"/>
+                            </div>
+
+                            <apex:outputPanel id="examButtonPanel">
+                                <apex:commandbutton value="Previous"
+                                                    action="{!prev}"
+                                                    disabled="{!DisabledPrev}"
+                                                    rerender="OneByOneExam"
+                                                    styleClass="btn btn-default">
+                                </apex:commandbutton>
+                                <apex:commandbutton value="Next"
+                                                    action="{!next}"
+                                                    disabled="{!DisabledNext}"
+                                                    rerender="OneByOneExam"
+                                                    styleClass="btn btn-default">
+                                </apex:commandbutton>
+                                <apex:commandbutton id="submitButton"
+                                                    value="Submit"
+                                                    action="{!submit}"
+                                                    rendered="{!currentQues == NumQuestions}"
+                                                    styleClass="btn btn-primary"
+                                >
+                                </apex:commandbutton>
+
+                            </apex:outputPanel>
+
+                        </apex:pageBlock>
+                    </apex:form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+    var shouldSkip = {!IF(ISBLANK(endTime), 'true', 'false')};
+if(!shouldSkip){
+var d = new Date('{!TargetTime}');
+// Set the date we're counting down to
+var countDownDate = d.getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now an the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("timer").innerHTML = (days > 0 ? days + "d " : "") + (hours > 0 ? hours + "h " : "")
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    submit();
+  }
+}, 1000);
+}
+</script>
+
+
+    <footer role="contentinfo" class="slds-p-around--large">
+
+        <div class="slds-grid slds-grid--align-spread">
+            <p class="slds-col">&copy; Chris G, Matt Y, Tim W, Yash P, and Tenzin T.</p>
+        </div>
+
+    </footer>
+
+    </body>
+
+
+    </html>
+</apex:page>

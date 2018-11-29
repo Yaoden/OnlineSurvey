@@ -1,0 +1,11 @@
+<messaging:emailTemplate subject="Online Survey" recipientType="Contact" relatedToType="SurveyResponse__c">
+<messaging:htmlEmailBody >
+
+<html>
+    <h1>Exam: {!relatedTo.SurveyName__c}</h1>
+    <p>Hello, {!relatedTo.ContactName__c}</p>
+    <p>You have been given an exam. Please follow the link below:</p>
+    <a href="{!$Label.DynamicExamURL}{!relatedTo.Id}">Take exam here</a>
+</html>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

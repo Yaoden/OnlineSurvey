@@ -1,0 +1,167 @@
+<apex:page standardController="Survey__c"
+	extensions="ControllerSurveySummary"
+    sidebar="false"
+    showheader="false"
+    docType="html-5.0"
+    applyHtmlTag="false"
+    standardStylesheets="false"
+    applyBodyTag="false"
+>
+
+<html lang="en">
+  <head>
+      <meta charset="utf-8" />
+      <title>CHART JS</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  </head>
+
+<style>
+.slds-scope{
+font-family: "Salesforce Sans",Arial,sans-serif;
+color: #16325c;
+}
+h1{text-align: center; font-weight:normal;}
+.charts{
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+}
+.chart-container{
+    position: relative;
+    /*height:*/
+    width:50%;
+    min-width:400px;
+    max-width:700px;
+}
+.btn.btn-default{
+  height: 40px;
+  width: 90px;
+  font-size: 1.25rem;
+  background-color: rgb(0, 112, 210);
+  border: 1px solid rgb(0, 112, 210);
+  color: rgb(255, 255, 255);
+
+}
+h1 {
+    font-size: 4.5rem;
+    font-weight: 300;
+    text-align: center;
+    word-spacing: 10px;
+    color: #16325c;
+}
+
+</style>
+
+<script>
+// data for all questions
+var resultsData = {!JSONResults}; 
+// setup chart defaults
+Chart.scaleService.updateScaleDefaults('linear', {
+    ticks: {min:0, beginAtZero:true, stepSize:1, suggestedMax:resultsData.length}
+});
+/** splits multiple choice totals into individual choices */
+function normalizeMultipleChoiceTotals(choicesTotals){
+    var tempData = {};
+    for(var key in choicesTotals){
+        if(!choicesTotals.hasOwnProperty(key)) continue;
+        if(key.indexOf('|') > -1){
+            var choices = key.split('|');
+            for(var i = 0; i<choices.length; i++){
+                var choice = choices[i];
+                if(tempData.hasOwnProperty(choice))
+                    tempData[choice] += choicesTotals[key];
+                else
+                    tempData[choice] = choicesTotals[key];
+            }
+        }else{
+            tempData[key] += choicesTotals[key];
+        }
+    }
+    return tempData;
+}
+</script>
+<div class="container slds-scope">
+  <h1>{!surveyName}</h1>
+    <apex:pageBlock rendered="{!ISBLANK(Results)}"><h1>Not found</h1></apex:pageBlock>
+    <div class="charts">
+  <apex:repeat value="{!Results}" var="wrappedQ">
+      <div class="chart-container">
+        <canvas id ='myChart{!wrappedQ.Id}'></canvas>
+      </div>
+
+    <script>
+  document.addEventListener('DOMContentLoaded',
+  function(){
+    var ctx = document.getElementById('myChart{!wrappedQ.Id}').getContext('2d');
+    var questionText = '{!wrappedQ.text}';
+    var recordType = '{!wrappedQ.recordType}';
+    var choicesNames = [];
+    var choicesTotals = [];
+    var questionId = '{!wrappedQ.Id}';
+    // puts choice names and choice totals in two parallel arrays to display in chart
+    for(var i = 0; i< resultsData.length; i++){
+        if(resultsData[i].id === questionId){
+            var questionData = resultsData[i];
+            var choicesTotalsObj = questionData.choicesTotals;
+
+            if(recordType === 'Multiple Choice'){
+                choicesTotalsObj = normalizeMultipleChoiceTotals(choicesTotalsObj);
+            }
+
+            for(var key in choicesTotalsObj){
+                if(!choicesTotalsObj.hasOwnProperty(key)) continue;
+                
+                choicesNames.push(key);
+                choicesTotals.push(choicesTotalsObj[key]);  
+            }       
+            break;
+        }
+    }
+    
+    var myChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+        labels: choicesNames,
+        datasets: [{
+            data: choicesTotals,
+            backgroundColor:[
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+                'rgba(75, 192, 192, 0.5)',
+                'rgba(153, 102, 255, 0.5)'
+        ],
+        borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1
+        }]
+        },
+        options:{
+            title:{
+                display:true,
+                text: questionText
+            },
+            legend:{
+                display:false
+            }
+        }
+    });
+}
+,false);
+  </script>
+  </apex:repeat>
+    </div>
+</div>
+
+</html>
+
+</apex:page>

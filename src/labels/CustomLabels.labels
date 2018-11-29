@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>DynamicExamURL</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DynamicExamURL</shortDescription>
+        <value>http://onlinesurveyrevature-developer-edition.na59.force.com/apex/ExamStartPage?surveyresponseid=</value>
+    </labels>
+    <labels>
+        <fullName>DynamicSurveyURL</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>URL for the dynamic survey</shortDescription>
+        <value>http://onlinesurveyrevature-developer-edition.na59.force.com/apex/DynamicSurveyForm?surveyresponseid=</value>
+    </labels>
+</CustomLabels>

@@ -1,0 +1,110 @@
+<apex:page controller="ExamPageController"
+           sidebar="false"
+           showheader="false"
+           docType="html-5.0"
+           applyHtmlTag="false"
+           standardStylesheets="false"
+>
+
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Exam</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+
+        <apex:slds />
+
+    </head>
+
+    <style>
+
+body{
+font-family: 'Salesforce Sans',Arial,sans-serif;
+background-color: white;
+border-width: 1px;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.questions{
+
+  font-size: 5rem;
+}
+.survey {
+      font-weight: normal;
+      word-spacing: 10px;
+}
+
+/*.has-error, ul[role=alert]>li {
+    color: red;
+    background: #fee;
+    border-radius: 10px;
+    padding: 5px;
+    display: inline-block;
+    list-style: none;
+}
+*/
+
+input.btn.btn-default{
+  height: 40px;
+  width: 90px;
+  font-size: 1.25rem;
+  background-color: rgb(0, 112, 210);
+  border: 1px solid rgb(0, 112, 210);
+  color: rgb(255, 255, 255);
+
+}
+
+li{
+  font-size: 4.5rem;
+  font-weight: 300;
+  text-align: center;
+  word-spacing: 10px;
+  color: #16325c;
+}
+
+h2{
+  font-size: 5rem;
+  font-weight: 300;
+  text-align: center;
+  word-spacing: 10px;
+  color: #16325c;
+}
+
+.subHeader{
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.hidden{display:none !important;}
+
+</style>
+    <apex:pageblock rendered="{!NOT(notFound)}">
+        <div class="slds-scope">
+
+            <ul>
+                <li>{!survey.name}</li>
+                <li><span class = "subHeader">{!NumQuestions} questions</span></li>
+                <li class="{!IF( ISBLANK(survey.NumberofMinutes__c) || survey.NumberofMinutes__c <= 0, 'hidden', '')}"><span class = "subHeader">{!survey.NumberofMinutes__c} minutes</span></li>
+                <li>
+                    <apex:form rendered="{!NOT(isFilled)}">
+                        <apex:commandbutton value="Start" rendered="{!NumQuestions > 0}" action="{!Start}" styleClass="btn btn-default"></apex:commandbutton>
+                    </apex:form>
+                </li>
+            </ul>
+
+        </div>
+    </apex:pageblock>
+    <apex:pageblock rendered="{!notFound}">
+        <h2>Survey Not Found!!!</h2>
+
+
+    </apex:pageblock>
+    </html>
+</apex:page>

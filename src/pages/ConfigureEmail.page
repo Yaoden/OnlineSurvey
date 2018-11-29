@@ -1,0 +1,319 @@
+<apex:page standardcontroller="Contact"
+    extensions="ContEmailConfig"
+    recordSetVar="Contacts"
+    sidebar="false"
+    showheader="false"
+    docType="html-5.0"
+    applyHtmlTag="false"
+    standardStylesheets="false"
+    applyBodyTag="false"
+>
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Configure Email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+
+    <!-- Import the Design System style sheet -->
+  <apex:slds />
+
+</head>
+
+<style>
+
+  th, td{
+    font-size: 1.25rem;
+    font-weight: 300;
+  }
+
+  p.slds-text-title--caps.slds-line-height--reset{
+    font-size: 2.75rem;
+    font-weight: 300;
+  }
+
+div.btn-group-vertical{
+
+}
+
+input.btn.btn-default{
+  height: 35px;
+  font-size: 1.25rem;
+  padding: 0;
+  margin-bottom: 20px;
+  margin-top: 13px;
+}
+
+  select.btn.btn-default{
+    height: 35px;
+    font-size: 1.25rem;
+    margin-bottom: -10px;
+
+  }
+
+</style>
+
+<body>
+
+  <div class="slds-scope">
+
+<div class="slds-page-header" role="banner">
+  <div class="slds-grid">
+    <div class="slds-col slds-has-flexi-truncate">
+
+      <!-- HEADING AREA -->
+<div class="slds-media slds-no-space slds-grow">
+  <div class="slds-media__figure">
+    <span class="slds-avatar slds-avatar--large">
+      <img src="{!URLFOR($Asset.SLDS, 'assets/images/avatar1.jpg')}" alt="" />
+    </span>
+  </div>
+  <div class="slds-media__body">
+    <p class="slds-text-title--caps slds-line-height--reset">Contacts</p>
+    <h1 class="slds-page-header__title slds-m-right--medium slds-align-middle slds-truncate" title="Selected Contacts">Selected Contacts</h1>
+  </div>
+</div>
+<!-- / HEADING AREA -->
+
+    </div>
+    <div class="slds-col slds-no-flex slds-grid slds-align-top">
+       <apex:form >
+        <div class="btn-group-vertical">
+          <apex:commandButton value="Send Survey" action="{!emailsending}" styleClass="btn btn-default"/>
+          <apex:selectList size="1" value="{!surveyid}" styleClass="btn btn-default">
+            <apex:selectOptions value="{!surveys}"></apex:selectOptions>
+          </apex:selectList>
+        </div>
+        </apex:form>
+    </div>
+  </div>
+  <div class="slds-grid">
+    <div class="slds-col slds-align-bottom slds-p-top--small">
+      <p class="slds-text-body--small page-header__info">
+           <apex:form >
+
+      <apex:pageMessages ></apex:pageMessages>
+        <apex:pageMessage summary="Count: {!iCountSize}" severity="info"  id="mupms"/>
+        </apex:form>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<div class="slds-scope">
+
+     <apex:form id="muform">
+
+
+
+
+<apex:pageBlock id="PageBlock1">
+
+
+
+<table class="slds-table slds-table_bordered slds-table_cell-buffer">
+  <thead>
+    <tr class="slds-text-title_caps">
+      <th scope="col" class="slds-cell-buffer_left">
+        <div class="slds-truncate" title="First Name">FIRST NAME</div>
+      </th>
+      <th scope="col" class="slds-cell-buffer_left">
+        <div class="slds-truncate" title="Last Name">LAST NAME</div>
+      </th>
+      <th scope="col" class="slds-cell-buffer_left">
+        <div class="slds-truncate" title="EMAIL">EMAIL</div>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <apex:repeat value="{!lstcont}" var="cont" >
+    <tr>
+      <th scope="row" data-label="First Name" class="slds-cell-buffer_left">
+        <div class="slds-truncate" title="First Name">{!cont.firstname}</div>
+      </th>
+      <td data-label="Last Name" class="slds-cell-buffer_left">
+        <div class="slds-truncate" title="Last Name">{!cont.lastname}</div>
+      </td>
+      <td data-label="Email" class="slds-cell-buffer_left">
+        <div class="slds-truncate" title="Email">{!cont.email}</div>
+      </td>
+
+      <td>
+        <i class="fa fa-trash" aria-hidden="true">
+          <apex:commandLink action="{!removefromlist}" rerender="PageBlock1,mupms">
+              <apex:image id="theImage" value="{!$Resource.trash}" width="15" height="15"/>
+              <apex:param name="nickName" value="{!cont.Id}" assignTo="{!tempremoval}"/>
+          </apex:commandLink>
+        </i>
+      </td>
+    </tr>
+    </apex:repeat>
+  </tbody>
+  </table>
+
+
+<!-- <div align="center" class = "selectSurvey">
+  <h5>Select Survey:</h5>
+    <apex:selectList size="1" value="{!surveyid}" styleClass="btn btn-default">
+      <apex:selectOptions value="{!surveys}" id="surveyToggle"></apex:selectOptions>
+    </apex:selectList>
+</div>
+
+<div class = "configureEmail">
+  <apex:commandButton value="Send Email" action="{!emailsending}" styleClass="btn btn-default" />
+</div> -->
+
+</apex:pageBlock>
+
+
+<!-- FOOTER -->
+<footer role="contentinfo" class="slds-p-around--large">
+  <!-- LAYOUT GRID -->
+  <div class="slds-grid slds-grid--align-spread">
+    <p class="slds-col">Selected Contacts to Send Survey</p>
+    <p class="slds-col">&copy; Team C</p>
+  </div>
+  <!-- / LAYOUT GRID -->
+</footer>
+<!-- / FOOTER -->
+
+
+
+    </apex:form>
+    </div>
+    </div>
+    </body>
+    </html>
+</apex:page>
+
+<!--  <head>
+      <meta charset="utf-8" />
+      <title>Survey</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link href="https://fonts.googleapis.com/css?family=Khula" rel="stylesheet" />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+    </head>  -->
+
+<!--
+<style>
+
+body{
+display:flex;
+justify-content: center;
+align-items: center;
+}
+
+
+h1{
+margin-bottom: 40px;
+}
+
+.configureEmail{
+display: flex;
+justify-content: center;
+align-items: center;
+margin-bottom: 30px;
+margin-top: 30px;
+}
+
+
+.form-group{
+display: block;
+}
+
+.selectSurvey{
+margin-bottom: 15px;
+padding-right: 10px;
+}
+
+btn btn-default dropdown-toggle{
+margin-right: 20px;
+}
+
+
+.form-control.input-lg{
+height: 100px;
+}
+
+h5{
+display: inline-block;
+}
+
+input.btn.btn-primary{
+margin-left: 10px;}
+
+
+
+#theImage{
+margin-right: 80px;
+}
+
+th{
+text-align: center;
+}
+
+</style>
+ -->
+
+<!--         <div class = 'dynamicContact'>
+          <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+             <apex:repeat value="{!lstcont}" var="cont">
+              <tr>
+                <td>{!cont.firstname}</td>
+                <td>{!cont.lastname}</td>
+                <td>{!cont.email}</td>
+           <td> <i class="fa fa-trash" aria-hidden="true">
+                <apex:commandLink action="{!removefromlist}" rerender="PageBlock1,mupms">
+                    <apex:image id="theImage" value="{!$Resource.trash}" width="18" height="18"/>
+                    <apex:param name="nickName" value="{!cont.Id}" assignTo="{!tempremoval}"/>
+                </apex:commandLink></i>
+           </td>
+              </tr>
+             </apex:repeat>
+            </tbody>
+            </table>
+           </div> -->
+
+
+<!--
+    <apex:pageblock id="PageBlock2" Rendered="{!showblock2}">
+
+
+         <div class="goback_sendemail">
+               <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Go Back" action="{!previoussection}" id="goback" styleClass="btn btn-success"/>
+                <apex:commandButton value="Send Email" action="{!emailsending}" styleClass="btn btn-primary"/>
+                </apex:pageBlockButtons>
+        </div>
+
+        <div class = "selectSurvey">
+             <h5>Select Survey:</h5><apex:selectList size="1" value="{!surveyid}" styleClass="btn btn-default dropdown-toggle">
+             <apex:selectOptions value="{!surveys}" id="surveyToggle"></apex:selectOptions>
+             </apex:selectList>
+        </div>
+
+        <div class="form-group">
+               <h5>Subject:</h5> <apex:input value="{!strsubject}" id="strsubjectInput" styleClass="form-control input"/><br></br>
+               <h5>Body:</h5> <apex:input value="{!strbody}" id="strbodyInput" styleClass="form-control input-lg"/><br></br>
+        </div>
+
+
+   </apex:pageblock>
+-->

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>false</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>false</enableSharing>
+    <enableStreamingApi>false</enableStreamingApi>
+    <fields>
+        <fullName>CorrectAnswer__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Correct Answer</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Correct__c</fullName>
+        <description>Used by the surveyresponse object to count the number of correct answers</description>
+        <externalId>false</externalId>
+        <formula>IF(SurveyResponse__r.Survey__r.RecordType.Name == &quot;Exam&quot;,
+ IF(ISBLANK(TextfieldAnswer__c),False,
+   IF(Question__r.RecordType.DeveloperName = &apos;Multiple Choice&apos;,
+      IF(CONTAINS(UPPER(SelectedAnswer__c),UPPER(Question__r.CorrectAnswer__c)),True,False), 
+      IF(UPPER(SelectedAnswer__c) ==  UPPER(Question__r.CorrectAnswer__c),True,False)
+   )
+ ),
+ False
+)</formula>
+        <label>Correct</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Question__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Question</label>
+        <referenceTo>Question__c</referenceTo>
+        <relationshipLabel>Answers</relationshipLabel>
+        <relationshipName>Answers</relationshipName>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SelectedAnswer__c</fullName>
+        <description>map the given answer to the selected answer choices</description>
+        <externalId>false</externalId>
+        <formula>IF(SurveyResponse__r.Survey__r.RecordType.Name == &quot;Exam&quot;,
+ IF(ISBLANK(TextfieldAnswer__c),&quot;&quot;,
+   IF(Question__r.RecordType.Name == &quot;True/False&quot;,
+     CASE(TextfieldAnswer__c,&quot;True&quot;,&quot;True&quot;,&quot;False&quot;),
+     IF(Question__r.RecordType.Name == &quot;Radio&quot;,
+        CASE(TextfieldAnswer__c, Question__r.Choice_A__c ,&quot;A&quot;, Question__r.Choice_B__c ,&quot;B&quot;, 
+             Question__r.Choice_C__c ,&quot;C&quot;, Question__r.Choice_D__c,&quot;D&quot;,&quot;E&quot;),
+        TextfieldAnswer__c
+     ) 
+   )
+ ),
+ &quot;&quot;
+)</formula>
+        <label>Selected Answer</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SurveyResponse__c</fullName>
+        <externalId>false</externalId>
+        <label>Survey Response</label>
+        <referenceTo>SurveyResponse__c</referenceTo>
+        <relationshipLabel>Answers</relationshipLabel>
+        <relationshipName>Answers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>TextfieldAnswer__c</fullName>
+        <externalId>false</externalId>
+        <label>TextfieldAnswer</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Answer</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>SurveyResponse__c</columns>
+        <columns>TextfieldAnswer__c</columns>
+        <columns>Question__c</columns>
+        <columns>SelectedAnswer__c</columns>
+        <columns>Correct__c</columns>
+        <columns>CorrectAnswer__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>AN-{0000}</displayFormat>
+        <label>Answers Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Answers</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

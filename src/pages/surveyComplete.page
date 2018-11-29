@@ -1,0 +1,50 @@
+<apex:page sidebar="false"
+    showheader="false"
+    docType="html-5.0"
+    applyHtmlTag="false"
+    standardStylesheets="false"
+    >
+<html lang="en">
+
+    <head>
+      <meta charset="utf-8" />
+      <title>Survey Complete</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css?family=Khula" rel="stylesheet" />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+      <apex:slds />
+    </head>
+
+<style>
+p{
+font-family: 'Salesforce Sans', Arial,sans-serif;
+font-size: 4rem;
+font-weight: 300;
+color: #16325c;
+display: absolute;
+}
+
+.surveyComplete{
+height: 90vh;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+</style>
+
+
+<div class="slds-scope">
+<div class = 'surveyComplete'>
+  <p>Thank You!<br></br>
+  Your survey has been submitted.<br></br>
+  <a href= 'https://giphy.com/gifs/pizza-drake-hotline-bling-e2AKpOvx2MREY/fullscreen'>Exit Here.</a></p>
+</div>
+</div>
+
+
+
+ </html>
+</apex:page>

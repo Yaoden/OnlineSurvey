@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Question</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Questions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Choice A --></label>
+        <name>Choice_A__c</name>
+    </fields>
+    <fields>
+        <label><!-- Choice B --></label>
+        <name>Choice_B__c</name>
+    </fields>
+    <fields>
+        <label><!-- Choice C --></label>
+        <name>Choice_C__c</name>
+    </fields>
+    <fields>
+        <label><!-- Choice D --></label>
+        <name>Choice_D__c</name>
+    </fields>
+    <fields>
+        <label><!-- Choice E --></label>
+        <name>Choice_E__c</name>
+    </fields>
+    <fields>
+        <label><!-- Correct Answer --></label>
+        <name>CorrectAnswer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Question Text --></label>
+        <name>Question_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Question for --></label>
+        <name>Questionfor__c</name>
+        <picklistValues>
+            <masterLabel>Exam</masterLabel>
+            <translation><!-- Exam --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Survey</masterLabel>
+            <translation><!-- Survey --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Question Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Short Answer</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>True/False</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Multiple Choice --></label>
+        <name>Multiple_Choice</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Radio --></label>
+        <name>Radio</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Short Answer --></label>
+        <name>Short_Answer</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- True/False --></label>
+        <name>True_False</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Exam question cannot be a short answer --></errorMessage>
+        <name>Exam_question_cannot_be_short_answer</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must provide the correct answer for the exam question --></errorMessage>
+        <name>Exam_question_has_correct_answer</name>
+    </validationRules>
+</CustomObjectTranslation>

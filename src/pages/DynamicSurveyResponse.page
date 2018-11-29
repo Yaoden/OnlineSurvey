@@ -1,0 +1,183 @@
+<apex:page standardcontroller="SurveyResponse__c"
+    extensions="DynamicSurveyResponseExtension"
+    sidebar="false"
+    docType="html-5.0"
+    standardStylesheets="false"
+>
+
+<html lang="en">
+
+    <head>
+      <meta charset="utf-8" />
+      <title>Survey</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link href="https://fonts.googleapis.com/css?family=Khula" rel="stylesheet" />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+
+    <apex:slds />
+    </head>
+
+<style>
+
+body{
+font-family: 'Salesforce Sans',Arial,sans-serif;
+position: relative;
+background-color: rgb(244, 246, 249);
+border-width: 1px;
+}
+
+
+p.surveyheader{
+    font-weight: 300;
+    font-size: 4rem;
+    line-height: 1.25;
+    text-align: center;
+}
+
+.slds-text-heading_medium{
+  text-align: center;
+}
+
+.container{
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: rgb(216, 221, 230);
+    padding: 1rem 1.5rem 1rem 1.5rem;
+}
+
+/*questions */
+label.questions{
+    font-size: 1.2rem;
+    font-weight: 300;
+/*    border-top: solid;
+*/    border-width: 1px;
+    border-color: rgb(216, 221, 230);
+    padding: 1rem 1.5rem 1rem;
+}
+
+/*answer choices*/
+label{
+  font-size: 1.0rem;
+  font-weight: 300;
+}
+
+
+.choices{
+font-size: 12px;
+margin-left: 30px;
+font-weight: normal;
+display: block;
+}
+
+
+.choices input[type=radio], .choices input[type=checkbox]{
+margin-right: 10px;
+}
+
+
+td{
+display: block;
+font-size: 12px;
+}
+
+
+textarea.choices{
+    background-color: rgb(255, 255, 255);
+    color: rgb(22, 50, 92);
+    border: 1px solid rgb(216, 221, 230);
+    border-radius: .25rem;
+    width: 25%;
+    -webkit-transition: border .1s linear,background-color .1s linear;
+    transition: border .1s linear,background-color .1s linear;
+    display: inline-block;
+    padding: 0 1rem 0 .75rem;
+    line-height: 1.875rem;
+    min-height: calc(2.125rem + 2px);
+    margin-left: 30px;
+    font-size: 12px;
+}
+
+.has-error, ul[role=alert]>li {
+    color: red;
+    background: #fee;
+    border-radius: 10px;
+    padding: 5px;
+    display: inline-block;
+    list-style: none;
+}
+
+
+.questions{
+font-size: 1.25rem;
+font-weight: 300;
+margin: 15px 0 5px 0;
+display: block;
+}
+
+.has-error, ul[role=alert]>li {
+    color: red;
+    background: #fee;
+    border-radius: 10px;
+    padding: 5px;
+    display: inline-block;
+    list-style: none;
+}
+
+
+</style>
+
+
+
+<!-- <apex:form styleclass="body">
+
+<div class="jumbotron text-center">
+  <h1 class = 'survey'>{!sname}</h1>
+  <h2>{!numQuestions} questions</h2>
+</div>
+
+<div class = "container">
+
+<div class = 'well well-lg'>
+  <apex:messages />
+  <apex:dynamicComponent componentValue="{!responsePage}"/>
+</div>
+
+</div>
+</apex:form>
+ -->
+
+
+<div class="slds-scope">
+  <div class="well well-lg">
+<apex:form >
+
+<div class="jumbotron text-center">
+  <p class="surveyheader">{!sname}</p>
+</div>
+
+<div class="container">
+<div class="slds-text-heading_medium">User: {!resp.ContactName__c}</div>
+<div class="slds-text-heading_medium">{!NumQuestions} questions</div>
+<apex:outputlabel rendered="{!isExam}"><div class="slds-text-heading_medium">Score: {!examScore}/{!NumQuestions}</div></apex:outputlabel>
+<div class="slds-form-element">
+  <apex:messages />
+  <apex:dynamicComponent componentValue="{!responsePage}"/>
+</div>
+</div>
+
+</apex:form>
+
+<footer role="contentinfo" class="slds-p-around--large">
+  <!-- LAYOUT GRID -->
+  <div class="slds-grid slds-grid--align-spread">
+    <p class="slds-col">{!sname}</p>
+    <p class="slds-col">&copy; Chris G, Matt Y, Tim W, Yash P, and Tenzin T.</p>
+  </div>
+  <!-- / LAYOUT GRID -->
+</footer>
+
+</div>
+</div>
+</html>
+</apex:page>

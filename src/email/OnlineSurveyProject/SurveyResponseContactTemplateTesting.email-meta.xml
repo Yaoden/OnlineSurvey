@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Email template when sending survey to contact</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Survey Response: Contact Template Testing</name>
+    <style>none</style>
+    <subject>Online Survey</subject>
+    <textOnly>Hello {!SurveyResponse__c.Contact__c.name}, Please Take your Survey
+
+You have been selected to participate in a 	Survey.
+
+Take survey here {!$Label.DynamicSurveyURL+SurveyResponse__c.Id}</textOnly>
+    <type>custom</type>
+</EmailTemplate>

@@ -1,0 +1,70 @@
+<apex:page controller="ExamPageController"
+  standardStylesheets="false"
+  sidebar="false"
+  docType="html-5.0"
+  applyHtmlTag="false"
+  showHeader="false"
+  >
+
+
+<html lang="en">
+
+    <head>
+      <meta charset="utf-8" />
+      <title>Survey Complete</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css?family=Khula" rel="stylesheet" />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+      <apex:slds />
+    </head>
+
+<style>
+
+
+body{
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+
+}
+
+
+h1, h2{
+font-family: 'Salesforce Sans', Arial,sans-serif;
+font-weight: 300;
+color: #16325c;
+display: block;
+text-align: center;
+}
+
+h1{
+  font-size: 5rem;
+}
+
+h2{
+  font-size: 3.5rem;
+}
+
+</style>
+
+<div class="slds-body">
+<div class="scorePage">
+    <h1>Exam Complete</h1>
+</div>
+
+<div class="showscore">
+    <apex:pageblock rendered="{!showScore}">
+    <h2>Your score: {!numCorrectQuestions}/{!numQuestions}</h2>
+    </apex:pageblock>
+</div>
+
+</div>
+</html>
+
+
+
+
+</apex:page>

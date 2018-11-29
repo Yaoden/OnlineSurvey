@@ -1,0 +1,11 @@
+<messaging:emailTemplate subject="Online Survey" recipientType="Contact" relatedToType="SurveyResponse__c">
+<messaging:htmlEmailBody >
+
+<html>
+    <h1>Survey: {!relatedTo.SurveyName__c}</h1>
+    <p>Hello, {!relatedTo.ContactName__c}</p>
+    <p>You have been selected to participate in a survey. Please follow the link below:</p>
+    <a href="{!$Label.DynamicSurveyURL}{!relatedTo.Id}">Take survey here</a>
+</html>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

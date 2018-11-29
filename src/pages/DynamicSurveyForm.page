@@ -1,0 +1,209 @@
+<apex:page controller="DynamicSurveyFormController"
+    sidebar="false"
+    showheader="false"
+    docType="html-5.0"
+    applyHtmlTag="false"
+    standardStylesheets="false"
+>
+
+<html lang="en">
+
+    <head>
+      <meta charset="utf-8" />
+      <title>Survey Form</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+
+       <apex:slds />
+
+    </head>
+
+<style>
+
+body{
+font-family: 'Salesforce Sans',Arial,sans-serif;
+position: relative;
+background-color: rgb(244, 246, 249);
+border-width: 1px;
+}
+
+p.surveyheader{
+    font-weight: 300;
+    font-size: 5rem;
+    line-height: 1.25;
+}
+
+/*.survey {
+      font-weight: normal;
+      word-spacing: 10px;
+}*/
+
+.slds-text-heading_large{
+  text-align: center;
+/*  margin-bottom: 10px;
+*/}
+
+.container{
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: rgb(216, 221, 230);
+    padding: 1rem 1.5rem 1rem 1.5rem;
+}
+
+/*questions */
+label.questions{
+    font-size: 2rem;
+    font-weight: 300;
+/*    border-top: solid;*/
+    border-width: 1px;
+    border-color: rgb(216, 221, 230);
+    padding: 1rem 1.5rem 1rem;
+}
+
+/*answer choices*/
+label{
+  font-size: 1.75rem;
+  font-weight: 300;
+}
+
+
+.choices{
+font-size: 1.75rem;
+margin-left: 30px;
+font-weight: normal;
+display: block;
+}
+
+.choices input[type=radio], .choices input[type=checkbox]{
+margin-right: 15px;
+}
+
+td{
+display: block;
+font-size: 1.75rem;
+}
+
+.questions{
+font-size: 2rem;
+font-weight: 300;
+margin: 15px 0 5px 0;
+display: block;
+}
+
+textarea.choices{
+    background-color: rgb(255, 255, 255);
+    color: rgb(22, 50, 92);
+    border: 1px solid rgb(216, 221, 230);
+    border-radius: .25rem;
+    width: 45%;
+    -webkit-transition: border .1s linear,background-color .1s linear;
+    transition: border .1s linear,background-color .1s linear;
+    display: inline-block;
+    padding: 0 1rem 0 .75rem;
+    line-height: 1.875rem;
+    min-height: calc(2.125rem + 60px);
+    margin-left: 30px;
+    font-size: 1.75rem;
+    font-weight: 300;
+}
+
+.has-error, ul[role=alert]>li {
+    color: red;
+    background: #fee;
+    border-radius: 10px;
+    padding: 5px;
+    display: inline-block;
+    list-style: none;
+}
+
+button.slds-button.slds-button_neutral{
+    height: 40px;
+    width: 95px;
+    font-size: 1.5rem;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    float: right;
+    background-color: rgb(0, 112, 210);
+    border: 1px solid rgb(0, 112, 210);
+    color: rgb(255, 255, 255);
+}
+
+button.slds-button.slds-button_neutral:hover{
+  background-color: rgb(0, 95, 178);
+  color: rgb(255, 255, 255);
+}
+
+.footer{
+  font-size: 1.25rem;
+  margin-top: 15px;
+}
+
+</style>
+
+<div class="slds-scope">
+  <div class="well well-lg">
+<apex:form id="surveyForm" styleclass="body" rendered="{!numQuestions > 0}">
+
+<div class="jumbotron text-center">
+  <p class="surveyheader">{!survey.name}</p>
+  <div class="slds-text-heading_large">{!NumQuestions} questions</div>
+</div>
+
+<div class="container">
+<!-- <div class="slds-text-heading_large">{!NumQuestions} questions</div> -->
+<div class="slds-form-element">
+  <apex:messages />
+  <apex:dynamicComponent componentValue="{!questionDynamicForm}"/>
+  <apex:pageBlock rendered="{!NOT(isFilled)}">
+    <button type="button" onclick="save()" class="slds-button slds-button_neutral">Submit</button>
+  </apex:pageBlock>
+  <apex:actionfunction name="save" action="{!save}" />
+</div>
+</div>
+
+</apex:form>
+<apex:pageblock rendered="{!notFound}">
+<div class="jumbotron text-center">
+  <h2>Survey not found</h2>
+</div>
+</apex:pageblock>
+<!-- FOOTER -->
+<div class="footer">
+<footer role="contentinfo" class="slds-p-around--large">
+  <!-- LAYOUT GRID -->
+  <div class="slds-grid slds-grid--align-spread">
+    <p class="slds-col">{!survey.name}</p>
+    <p class="slds-col">&copy; Chris G, Matt Y, Tim W, Yash P, and Tenzin T.</p>
+  </div>
+  <!-- / LAYOUT GRID -->
+</footer>
+</div>
+<!-- / FOOTER -->
+</div>
+
+</div>
+
+
+
+<script>
+
+$(document).ready(function(){
+    // allow toggling radio buttons // not needed if fields are required
+    $('input[type=radio]').click(function(ev){
+        var previousValue = $(this).data('storedValue');
+        if(previousValue){
+            $(this).data('storedValue', false);
+            $(this).prop('checked', false);
+        }else{
+            $(this).data('storedValue', true);
+            $(this).closest('fieldset').find('input[type=radio]:not(:checked)').data('storedValue', false);
+        }
+    });
+});
+}
+</script>
+
+</html>
+</apex:page>

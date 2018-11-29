@@ -1,0 +1,7 @@
+<html>
+Hello {!SurveyResponse__c.Contact__c.name},
+	<h1>Please Take your Survey</h1>
+	<p>You have been selected to participate in a 
+	Survey.</p>
+<a href="{!$Label.DynamicSurveyURL+SurveyResponse__c.Id}">Take survey here {!$Label.DynamicSurveyURL+SurveyResponse__c.Id} </a>
+<html>
