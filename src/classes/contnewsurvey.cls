@@ -126,6 +126,8 @@ public class contnewsurvey {
 		pageblock9 = false;
 		*/
 		questiontypes = new list<selectoption>();
+		
+		//Delete because it's called again when redirected to existingquestionspage
 		oldquestionsgetter();
 		
 		//sets up the options for true/false questions
@@ -308,11 +310,12 @@ public class contnewsurvey {
 
 
 		questiontypes();
+		/*
 		pageblock4 = false;
 		pageblock5 = false;
 		pageblock9 = false;
 		pageblock2 = true;
-
+		*/
 
 	}
 	//gets all the old questions, called in multiple places
