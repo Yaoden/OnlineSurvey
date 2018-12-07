@@ -245,22 +245,10 @@
                     
                 </div>
                 
-                <!-- Replace these pageblocks with pages TEST commit -->
                 <apex:form >
                     
                     <div class="container">
                         
-                        
-                        <!-- Select the record type 
-                        <apex:pageblock title="Choose Survey Type" rendered="{!pageblock1}">
-                                <p>Type:
-                                        <apex:selectList size="1" value="{!strsurveyrecordtypeid}" styleClass="btn btn-default">
-                                            <apex:selectOptions value="{!surveytypes}"></apex:selectOptions>
-                                        </apex:selectList></p><br></br>
-                                <p>Name:<apex:inputtext value="{!strsurveyname}" required="true" styleClass="form-control"/></p><br></br>
-                            <apex:commandButton value="Continue" styleClass="btn btn-primary" action="{!afterchosensurveytype}"/>
-                        </apex:pageblock>
-                        -->
                         
                         <!--  For exam record set up -->
                         <apex:pageblock title="For Exam Record Type">
@@ -269,110 +257,13 @@
                             <p>Randomized:<apex:inputCheckbox value="{!randomized}"/></p>
                             <p>ShowScore:<apex:inputCheckbox value="{!showscore}"/></p>
                             <p>Show one question at a time:<apex:inputCheckbox value="{!showonequestion}"/></p>
-                            <apex:commandButton value="Insert Survey" action="{!afterchosensurveytype}" styleClass="btn btn-primary"/>
+                            <apex:commandButton value="Create Survey" action="{!afterchosensurveytype}" styleClass="btn btn-primary"/>
                         </apex:pageblock>
-                        
-                       
-                        <!-- create and add questions to the current survey/exam being made 
-                        <apex:pageblock title="Current Questions" rendered="{!pageblock2}">
-                         
-                            <apex:pageblockTable title="Current Questions" value="{!questions}" var="item">
-                                <apex:Column headervalue="Question" value="{!item.Question_Text__c}"/>
-                                <apex:column headervalue="Remove From Survey">
-                                    <apex:commandlink value="Remove" action="{!removequestion}">
-                                        <apex:param name="tempid" value="{!item.id}" assignTo="{!holdidfordelete}"/>
-                                    </apex:commandlink>
-                                </apex:column>
-                                
-                                <apex:column headervalue="Remove From Org">
-                                    <apex:commandlink value="Remove" action="{!removetotalquestion}">
-                                        <apex:param name="tempid" value="{!item.id}" assignTo="{!holdidfordelete}"/>
-                                    </apex:commandlink>
-                                </apex:column>
-                            </apex:pageblockTable>
-                            
-                            <apex:commandButton value="Make New Question" action="{!makenewquestion}" styleClass="btn btn-success"/>
-                            <apex:commandButton value="Link To Existing Question" action="{!linkquestion}" styleClass="btn btn-success"/>
-                        </apex:pageblock>
-                        
-                        
-                        
-                        
-                        
-                        <apex:pageblock title="Make new Question" rendered="{!pageblock4}">
-                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
-                            <apex:selectList size="1" value="{!questiontypeid}" styleClass="btn btn-default">
-                                <apex:selectOptions value="{!questiontypes}"></apex:selectOptions>
-                            </apex:selectList>
-                            <apex:commandButton value="Create" styleClass="btn btn-default" action="{!choosewhichquestiontypetocreate}"/>
-                        </apex:pageblock>
-                        
-                        
-                        <apex:pageblock title="New Multiple Choice Question" rendered="{!pageblock6}">
-                            <p>Question Text:<apex:inputText value="{!questiontext}"  required="true" styleClass="form-control"/></p>
-                            <p>Choice A:<apex:inputtext value="{!questiona}"  required="true" styleClass="form-control"/></p>
-                            <p>Choice B:<apex:inputtext value="{!questionb}"  required="true" styleClass="form-control"/></p>
-                            <p>Choice C:<apex:inputtext value="{!questionc}" styleClass="form-control"/></p>
-                            <p>Choice D:<apex:inputtext value="{!questiond}" styleClass="form-control"/></p>
-                            <p>Choice E:<apex:inputtext value="{!questione}" styleClass="form-control"/></p>
-                            <p>Correct Answer(only if exam chosen):<apex:inputText value="{!correctanswer}" styleClass="form-control"/></p>
-                            <apex:commandButton value="Insert Question" action="{!insertnewquestion}" styleClass="btn btn-default"/>
-                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
-                        </apex:pageblock>
-                        
-                        
-                        
-                        
-                     
-                        <apex:pageblock title="New Radio Button Question" rendered="{!pageblock7}">
-                            <p>Question Text:<apex:inputText value="{!questiontext}"  required="true" styleClass="form-control"/></p>
-                            <p>Choice A:<apex:inputtext value="{!questiona}" required="true"  styleClass="form-control"/></p>
-                            <p>Choice B:<apex:inputtext value="{!questionb}"  required="true" styleClass="form-control"/></p>
-                            <p>Choice C:<apex:inputtext value="{!questionc}" styleClass="form-control"/></p>
-                            <p>Choice D:<apex:inputtext value="{!questiond}" styleClass="form-control"/></p>
-                            <p>Choice E:<apex:inputtext value="{!questione}" styleClass="form-control"/></p>
-                            <p>Correct Answer(only if exam chosen):<apex:inputText value="{!correctanswer}" styleClass="form-control"/></p>
-                            <apex:commandButton value="Insert Question" action="{!insertnewquestion}" styleClass="btn btn-default"/>
-                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
-                        </apex:pageblock>
-                        
-                        
-                        
-                        
-                        
-                        <apex:pageblock title="New Short Answer Question" rendered="{!pageblock8}">
-                            <p>Question Text:<apex:inputText required="true" value="{!questiontext}"/></p>
-                            <apex:commandButton value="Insert Question" styleClass="btn btn-default" action="{!insertnewquestion}"/>
-                        </apex:pageblock>
-                        
-                        
-                        
-                      
-                        <apex:pageblock title="New True False Question" rendered="{!pageblock9}">
-                            <p>Question Text:<apex:inputText required="true" value="{!questiontext}" styleClass="form-control"/></p>
-                            
-                            <p>Correct Answer:<br></br>
-                        <apex:selectList size="1" value="{!truefalsequestionoutput}" styleClass="btn btn-info">
-                            <apex:selectOptions value="{!truefalsequestion}"></apex:selectOptions>
-                        </apex:selectList>
-                    </p>
-                    <apex:commandButton value="Insert Question" styleClass="btn btn-default" action="{!insertnewquestion}"/>
-                    <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
-                </apex:pageblock>
-             
-                <apex:pageblock title="Use Existing Question" rendered="{!pageblock5}">
-                    
-                    <apex:selectList size="1" value="{!oldquestionid}" styleClass="btn btn-default">
-                        <apex:selectOptions value="{!existingquestions}"></apex:selectOptions>
-                    </apex:selectList>
-                    <apex:commandButton value="Add Question" styleClass="btn btn-default" action="{!linktooldquestion}"/>
-                    <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
-                </apex:pageblock>
-        		-->
-    </div>
-    
-    
-</apex:form>
+ 
+				    </div>
+				    
+				    
+				</apex:form>
 
 </div>
 

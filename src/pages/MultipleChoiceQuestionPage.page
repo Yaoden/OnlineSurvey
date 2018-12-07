@@ -245,19 +245,24 @@
                     
                 </div>
                 
+                <!-- Replace these pageblocks with pages TEST commit -->
                 <apex:form >
                     
                     <div class="container">
+                                           
                         
                         
-                        <!-- Select the record type -->
-                        <apex:pageblock title="Choose Survey Type">
-                                <p>Type:
-                                        <apex:selectList size="1" value="{!strsurveyrecordtypeid}" styleClass="btn btn-default">
-                                            <apex:selectOptions value="{!surveytypes}"></apex:selectOptions>
-                                        </apex:selectList></p><br></br>
-                                <p>Name:<apex:inputtext value="{!strsurveyname}" required="true" styleClass="form-control"/></p><br></br>
-                            <apex:commandButton value="Continue" styleClass="btn btn-primary" action="{!afterchosensurveytype}"/>
+                        
+                        <apex:pageblock title="New Multiple Choice Question">
+                            <p>Question Text:<apex:inputText value="{!questiontext}"  required="true" styleClass="form-control"/></p>
+                            <p>Choice A:<apex:inputtext value="{!questiona}"  required="true" styleClass="form-control"/></p>
+                            <p>Choice B:<apex:inputtext value="{!questionb}"  required="true" styleClass="form-control"/></p>
+                            <p>Choice C:<apex:inputtext value="{!questionc}" styleClass="form-control"/></p>
+                            <p>Choice D:<apex:inputtext value="{!questiond}" styleClass="form-control"/></p>
+                            <p>Choice E:<apex:inputtext value="{!questione}" styleClass="form-control"/></p>
+                            <p>Correct Answer(only if exam chosen):<apex:inputText value="{!correctanswer}" styleClass="form-control"/></p>
+                            <apex:commandButton value="Insert Question" action="{!insertnewquestion}" styleClass="btn btn-default"/>
+                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
                         </apex:pageblock>
 
 				    </div>

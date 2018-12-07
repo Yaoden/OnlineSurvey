@@ -248,22 +248,22 @@
                 <apex:form >
                     
                     <div class="container">
+                                           
                         
-                        
-                        <!-- Select the record type -->
-                        <apex:pageblock title="Choose Survey Type">
-                                <p>Type:
-                                        <apex:selectList size="1" value="{!strsurveyrecordtypeid}" styleClass="btn btn-default">
-                                            <apex:selectOptions value="{!surveytypes}"></apex:selectOptions>
-                                        </apex:selectList></p><br></br>
-                                <p>Name:<apex:inputtext value="{!strsurveyname}" required="true" styleClass="form-control"/></p><br></br>
-                            <apex:commandButton value="Continue" styleClass="btn btn-primary" action="{!afterchosensurveytype}"/>
-                        </apex:pageblock>
-
-				    </div>
-				    
-				    
-				</apex:form>
+                
+                <apex:pageblock title="Use Existing Question">
+                    
+                    <apex:selectList size="1" value="{!oldquestionid}" styleClass="btn btn-default">
+                        <apex:selectOptions value="{!existingquestions}"></apex:selectOptions>
+                    </apex:selectList>
+                    <apex:commandButton value="Add Question" styleClass="btn btn-default" action="{!linktooldquestion}"/>
+                    <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
+                </apex:pageblock>
+      
+    </div>
+    
+    
+</apex:form>
 
 </div>
 

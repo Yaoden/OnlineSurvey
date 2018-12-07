@@ -248,18 +248,19 @@
                 <apex:form >
                     
                     <div class="container">
-                        
-                        
-                        <!-- Select the record type -->
-                        <apex:pageblock title="Choose Survey Type">
-                                <p>Type:
-                                        <apex:selectList size="1" value="{!strsurveyrecordtypeid}" styleClass="btn btn-default">
-                                            <apex:selectOptions value="{!surveytypes}"></apex:selectOptions>
-                                        </apex:selectList></p><br></br>
-                                <p>Name:<apex:inputtext value="{!strsurveyname}" required="true" styleClass="form-control"/></p><br></br>
-                            <apex:commandButton value="Continue" styleClass="btn btn-primary" action="{!afterchosensurveytype}"/>
-                        </apex:pageblock>
+                                           
 
+                                         
+                       
+                        <apex:pageblock title="New Short Answer Question">
+                            <p>Question Text:<apex:inputText required="true" value="{!questiontext}"/></p>
+                            <apex:commandButton value="Insert Question" styleClass="btn btn-default" action="{!insertnewquestion}"/>
+                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
+                        </apex:pageblock>
+                        
+                        
+                        
+                        
 				    </div>
 				    
 				    

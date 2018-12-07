@@ -211,70 +211,38 @@ public class contnewsurvey {
 	}
 
 
-//double checks all the pageblock sections are in the correct state
-	public void goBackToQuestions() {
-		pageblock1 = false;
-		pageblock2 = true;
-		pageblock3 = false;
-		pageblock4 = false;
-		pageblock4 = false;
-		pageblock5 = false;
-		pageblock6 = false;
-		pageblock7 = false;
-		pageblock8 = false;
-		pageblock8 = false;
-		pageblock9 = false;
-
+	//returns to the questions page
+	public PageReference goBackToQuestions() {
+		return Page.QuestionsPage;
 	}
-//changes pageblock sections to make a new question
-	public void makenewquestion() {
-		pageblock2 = false;
-		pageblock4 = true;
-		pageblock5 = false;
+	//redirects to the new question page
+	public PageReference makenewquestion() {
+		return Page.NewQuestionsPage;
 	}
-	// allows you to link a new question
-	public void linkquestion() {
+	//redirects to the existing questions page
+	public PageReference linkquestion() {
+		//populates list of already existing questions from the SF database
 		oldquestionsgetter();
-
-		pageblock5 = true;
-		pageblock2 = false;
-		pageblock3 = false;
-		pageblock4 = false;
-		pageblock6 = false;
-		pageblock7 = false;
-		pageblock8 = false;
-		pageblock9 = false;
+		return Page.ExistingQuestionsPage;
 	}
 	//allows the user to select a record type for the question object
-	public void choosewhichquestiontypetocreate() {
+	public PageReference choosewhichquestiontypetocreate() {
 
-		//reset the blocks to avoid having all the blocks show
-		pageblock4 = false;
-		pageblock6 = false;
-		pageblock7 = false;
-		pageblock8 = false;
-		pageblock9 = false;
+		PageReference questionPage = Page.UnderConstruction;
 
-		if (questiontypeid ==
-				Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('Multiple Choice').getRecordTypeId()) {
-			//multiple choice
-			pageblock6 = true;
+		if (questiontypeid == Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('Multiple Choice').getRecordTypeId()) {
+				questionPage = Page.MultipleChoiceQuestionPage;
+		}else if (questiontypeid == Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('Radio').getRecordTypeId()) {
+				questionPage = Page.RadioButtonQuestionPage;
+		}else if (questiontypeid == Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('Short Answer').getRecordTypeId()) {
+				questionPage = Page.ShortAnswerQuestionPage;
+		}else if (questiontypeid == Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('True/False').getRecordTypeId()) {
+				questionPage = Page.TrueOrFalseQuestionPage;
+		}else{
+			//error report here
 		}
-		if (questiontypeid ==
-				Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('Radio').getRecordTypeId()) {
-			//radio
-			pageblock7 = true;
-		}
-		if (questiontypeid ==
-				Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('Short Answer').getRecordTypeId()) {
-			//short answer
-			pageblock8 = true;
-		}
-		if (questiontypeid ==
-				Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('True/False').getRecordTypeId()) {
-			//true false
-			pageblock9 = true;
-		}
+		
+		return questionPage;
 	}
 	//inserts the new question based on the question type
 	public void insertnewquestion() {
