@@ -23,6 +23,7 @@ public class contnewsurvey {
 	public boolean showonequestion{
 		get;set;
 	}
+	/*
 	public boolean pageblock1{
 		get;set;
 	}
@@ -50,6 +51,7 @@ public class contnewsurvey {
 	public boolean pageblock9{
 		get;set;
 	}
+	*/
 	public string stroutputid{
 		get;set;
 	}
@@ -112,6 +114,7 @@ public class contnewsurvey {
 		//questionRecordTypes = Schema.SObjectType.Question__c.getRecordTypeInfosByName();
 		linkedquestionids = new list<String>();
 		list<Schema.RecordTypeInfo> templst = new list<Schema.RecordTypeInfo>();
+		/*
 		pageblock1 = true;
 		pageblock2 = false;
 		pageblock3 = false;
@@ -121,6 +124,7 @@ public class contnewsurvey {
 		pageblock7 = false;
 		pageblock8 = false;
 		pageblock9 = false;
+		*/
 		questiontypes = new list<selectoption>();
 		oldquestionsgetter();
 		

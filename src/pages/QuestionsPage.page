@@ -253,8 +253,7 @@
                         
                         
                         <!-- create and add questions to the current survey/exam being made -->
-                        <apex:pageblock title="Current Questions" rendered="{!pageblock2}">
-                            <!-- Survey has been successfully input id = &nbsp; <apex:outputText value="{!stroutputid}"></apex:outputText> -->
+                        <apex:pageblock title="Current Questions">
                             <apex:pageblockTable title="Current Questions" value="{!questions}" var="item">
                                 <apex:Column headervalue="Question" value="{!item.Question_Text__c}"/>
                                 <apex:column headervalue="Remove From Survey">

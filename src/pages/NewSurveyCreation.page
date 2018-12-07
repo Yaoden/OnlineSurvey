@@ -252,7 +252,7 @@
                         
                         
                         <!-- Select the record type -->
-                        <apex:pageblock title="Choose Survey Type" rendered="{!pageblock1}">
+                        <apex:pageblock title="Choose Survey Type">
                                 <p>Type:
                                         <apex:selectList size="1" value="{!strsurveyrecordtypeid}" styleClass="btn btn-default">
                                             <apex:selectOptions value="{!surveytypes}"></apex:selectOptions>
@@ -262,7 +262,7 @@
                         </apex:pageblock>
                         
                         
-                        <!--  For exam record set up -->
+                        <!--  For exam record set up 
                         <apex:pageblock title="For Exam Record Type" rendered="{!pageblock3}">
                             <p>Number of Minutes:<apex:inputtext value="{!numberofminutes}" styleClass="form-control"/></p>
                             <p>Number of Questions Per Test:<apex:inputText value="{!numberofquestions}" styleClass="form-control"/></p>
@@ -272,9 +272,9 @@
                             <apex:commandButton value="Insert Survey" action="{!createsurvey}" styleClass="btn btn-primary"/>
                         </apex:pageblock>
                         
-                        <!-- create and add questions to the current survey/exam being made -->
+                       
                         <apex:pageblock title="Current Questions" rendered="{!pageblock2}">
-                            <!-- Survey has been successfully input id = &nbsp; <apex:outputText value="{!stroutputid}"></apex:outputText> -->
+                            
                             <apex:pageblockTable title="Current Questions" value="{!questions}" var="item">
                                 <apex:Column headervalue="Question" value="{!item.Question_Text__c}"/>
                                 <apex:column headervalue="Remove From Survey">
@@ -297,8 +297,8 @@
                         
                         
                         
-                        <!-- Create question block -->
-                        <apex:pageblock title="Make new Question" rendered="{!pageblock4}"><!--pageblock4-->
+                        
+                        <apex:pageblock title="Make new Question" rendered="{!pageblock4}">
                             <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
                             <apex:selectList size="1" value="{!questiontypeid}" styleClass="btn btn-default">
                                 <apex:selectOptions value="{!questiontypes}"></apex:selectOptions>
@@ -306,7 +306,7 @@
                             <apex:commandButton value="Create" styleClass="btn btn-default" action="{!choosewhichquestiontypetocreate}"/>
                         </apex:pageblock>
                         
-                        <!-- for multiple choice question -->
+                        
                         <apex:pageblock title="New Multiple Choice Question" rendered="{!pageblock6}">
                             <p>Question Text:<apex:inputText value="{!questiontext}"  required="true" styleClass="form-control"/></p>
                             <p>Choice A:<apex:inputtext value="{!questiona}"  required="true" styleClass="form-control"/></p>
@@ -322,7 +322,7 @@
                         
                         
                         
-                        <!-- for radio button question -->
+                        
                         <apex:pageblock title="New Radio Button Question" rendered="{!pageblock7}">
                             <p>Question Text:<apex:inputText value="{!questiontext}"  required="true" styleClass="form-control"/></p>
                             <p>Choice A:<apex:inputtext value="{!questiona}" required="true"  styleClass="form-control"/></p>
@@ -338,7 +338,7 @@
                         
                         
                         
-                        <!-- short answer question -->
+                        
                         <apex:pageblock title="New Short Answer Question" rendered="{!pageblock8}">
                             <p>Question Text:<apex:inputText required="true" value="{!questiontext}"/></p>
                             <apex:commandButton value="Insert Question" styleClass="btn btn-default" action="{!insertnewquestion}"/>
@@ -346,7 +346,7 @@
                         
                         
                         
-                        <!-- true or false question -->
+                        
                         <apex:pageblock title="New True False Question" rendered="{!pageblock9}">
                             <p>Question Text:<apex:inputText required="true" value="{!questiontext}" styleClass="form-control"/></p>
                             
@@ -358,7 +358,7 @@
                     <apex:commandButton value="Insert Question" styleClass="btn btn-default" action="{!insertnewquestion}"/>
                     <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
                 </apex:pageblock>
-                <!-- add existing question -->
+                
                 <apex:pageblock title="Use Existing Question" rendered="{!pageblock5}">
                     
                     <apex:selectList size="1" value="{!oldquestionid}" styleClass="btn btn-default">
@@ -367,7 +367,7 @@
                     <apex:commandButton value="Add Question" styleClass="btn btn-default" action="{!linktooldquestion}"/>
                     <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
                 </apex:pageblock>
-        
+        		-->
     </div>
     
     

@@ -263,7 +263,7 @@
                         -->
                         
                         <!--  For exam record set up -->
-                        <apex:pageblock title="For Exam Record Type" rendered="{!pageblock3}">
+                        <apex:pageblock title="For Exam Record Type">
                             <p>Number of Minutes:<apex:inputtext value="{!numberofminutes}" styleClass="form-control"/></p>
                             <p>Number of Questions Per Test:<apex:inputText value="{!numberofquestions}" styleClass="form-control"/></p>
                             <p>Randomized:<apex:inputCheckbox value="{!randomized}"/></p>
