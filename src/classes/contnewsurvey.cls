@@ -105,8 +105,8 @@ public class contnewsurvey {
 	}
 	public list<selectoption> truefalsequestion{get;set;}
 	public string truefalsequestionoutput{get;set;}
-public list<string> linkedquestionids{get;set;}
-//Constructor for the page, initializes the pageblock booleans for rendering
+	public list<string> linkedquestionids{get;set;}
+	//Constructor for the page, initializes the pageblock booleans for rendering
 	public contnewsurvey(ApexPages.StandardController stdcontroller) {
 		//surveyRecordTypes = Schema.SObjectType.Survey__c.getRecordTypeInfosByName();
 		//questionRecordTypes = Schema.SObjectType.Question__c.getRecordTypeInfosByName();
@@ -123,12 +123,13 @@ public list<string> linkedquestionids{get;set;}
 		pageblock9 = false;
 		questiontypes = new list<selectoption>();
 		oldquestionsgetter();
-
+		
+		//sets up the options for true/false questions
 		truefalsequestion = new list<selectoption>();
 		truefalsequestion.add(new selectoption('True','True'));
 		truefalsequestion.add(new selectoption('False','False'));
 
-
+		//sets 
 		questionfortype = new list<selectoption>();
 		questionfortype.add(new selectoption('Survey', 'Survey'));
 		questionfortype.add(new selectoption('Exam', 'Exam'));
@@ -145,7 +146,7 @@ public list<string> linkedquestionids{get;set;}
 		}
 	}
 
-	//inserts new survey is dependant upon survey record type
+	//inserts new survey is dependant upon survey record type. ***NEEDS TO BE UPDATE***
 	public void createsurvey() {
 		survey__c s = new survey__c();
 		s.Name = strsurveyname;
@@ -184,14 +185,11 @@ public list<string> linkedquestionids{get;set;}
 
 //decides what happens after the survey record type is chosen
 	public void afterchosensurveytype() {
-		pageblock1 = false;
-		if (strsurveyrecordtypeid ==
-				Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
-			pageblock3 = true;
-		} else if (strsurveyrecordtypeid ==
-				Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Survey').getRecordTypeId()) {
-			createsurvey();
-
+		if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
+			return Page.ExamRecordType;
+		} else if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Survey').getRecordTypeId()) {
+			return Page.QuestionsPage;
+			//createsurvey();
 		}
 
 	}

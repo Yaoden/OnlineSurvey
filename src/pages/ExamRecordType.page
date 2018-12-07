@@ -1,0 +1,382 @@
+<apex:page standardController="Survey__c"
+           extensions="contnewsurvey"
+           sidebar="false"
+           docType="html-5.0"
+           standardStylesheets="false"
+           >
+    
+    
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+        
+        
+        <head>
+            <meta charset="utf-8" />
+            <title>New Survey Creation</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+            
+            <apex:slds />
+            <script src="/path/to/svg4everybody.js"></script>
+            <script>svg4everybody(); // run it now or whenever you are ready</script>
+            
+            
+            
+            
+        </head>
+        
+        <style>
+            
+            html{
+            
+            }
+            
+            body{
+            font-family: 'Salesforce Sans',Arial,sans-serif;
+            background-color: rgb(244, 246, 249);
+            height: 100%;
+            font-weight: 300;
+            /*  display: flex;
+            justify-content: center;
+            align-items: center;*/
+            
+            }
+            
+            div.container{
+            width: 50%;
+            margin-left: 30px;
+            }
+            
+            div.pbBody{
+            font-size: 13px;
+            font-weight: 300;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            /*  line-height: 20px;
+            */
+            }
+            
+            h2.mainTitle{
+            font-size: 18px;
+            font-weight: 300;
+            padding-top: 30px;
+            padding-bottom: 15px;
+            }
+            
+            select.btn.btn-default{
+            height: 35px;
+            font-size: 12px;
+            font-size: 12px;
+            margin-left: 5px;
+            margin-top: 5px;
+            margin-right: 10px;
+            font-weight: 400;
+            }
+            
+            select.btn.btn-default:hover{
+            background-color: #f7f9fb;
+            }
+            
+            select.btn.btn-info{
+            width: 80px;
+            height: 35px;
+            font-size: 12px;
+            font-size: 12px;
+            font-weight: 400;
+            background-color: transparent;
+            border: 1px solid rgb(216, 221, 230);
+            background-color: rgb(255, 255, 255);
+            }
+            
+            select.btn.btn-info:hover{
+            background-color: #f7f9fb;
+            }
+            
+            
+            input.btn.btn-primary{
+            height: 35px;
+            /*    width: 90px; */
+            font-size: 12px;
+            background-color: rgb(0, 112, 210);
+            border: 1px solid rgb(0, 112, 210);
+            color: rgb(255, 255, 255);
+            margin-top: 10px;
+            font-weight: 400;
+            }
+            
+            input.btn.btn-primary:hover{
+            background-color: rgb(0, 95, 178);
+            }
+            
+            
+            input.btn.btn-success{
+            height: 35px;
+            /*    width: 90px; */
+            font-size: 12px;
+            background-color: rgb(0, 112, 210);
+            border: 1px solid rgb(0, 112, 210);
+            color: rgb(255, 255, 255);
+            margin-right: 15px;
+            margin-top: 25px;
+            font-weight: 400;
+            }
+            
+            input.btn.btn-success:hover{
+            background-color: rgb(0, 95, 178);
+            }
+            
+            input.btn.btn-danger{
+            height: 35px;
+            width: 90px;
+            font-size: 12px;
+            margin-top: 25px;
+            background-color: rgb(0, 112, 210);
+            border: 1px solid rgb(0, 112, 210);
+            color: rgb(255, 255, 255);
+            float: right;
+            font-weight: 400;
+            }
+            
+            
+            input.btn.btn-danger:hover{
+            background-color: rgb(0, 95, 178);
+            }
+            
+            input.btn.btn-default{
+            height: 35px;
+            /*    width: 90px;*/
+            font-size: 12px;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            margin-right: 5px;
+            font-weight: 400;
+            color: rgb(0, 95, 178);
+            background-color: transparent;
+            border: 1px solid rgb(216, 221, 230);
+            background-color: rgb(255, 255, 255);
+            }
+            
+            input.btn.btn-default:hover{
+            background-color: #f7f9fb;
+            }
+            
+            
+            input.btn.btn-info{
+            height: 35px;
+            /*    width: 90px;*/
+            font-size: 12px;
+            font-weight: 400;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            color: rgb(0, 95, 178);
+            background-color: transparent;
+            border: 1px solid rgb(216, 221, 230);
+            background-color: rgb(255, 255, 255);
+            transition: color .1s linear;
+            }
+            
+            input.btn.btn-info:hover{
+            background-color: #f7f9fb;
+            }
+            
+            
+            p{
+            font-size: 13px;
+            display: block;
+            font-weight: 300;
+            line-height: 45px;
+            /*margin-right: 5px;*/
+            }
+            
+            
+            p.slds-text-title--caps.slds-line-height--reset{
+            font-size: 2.75rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            }
+            
+            
+            .slds-page-header{
+            margin-bottom: 20px;
+            }
+            
+            body.slds-scope{
+            margin: 0;
+            padding: 0;
+            }
+            
+            input[type=checkbox], input[type=radio] {
+            margin: 4px 8px 0;
+            }
+            
+        </style>
+        
+        <body>
+            <div class="slds-scope">
+                
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-has-flexi-truncate">
+                            
+                            <div class="slds-media slds-no-space slds-grow">
+                                <div class="slds-media__figure">
+                                    <svg aria-hidden="true" class="slds-icon slds-icon-standard-user">
+                                        <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#timesheet')}"></use>
+                                    </svg>
+                                </div>
+                                <div class="slds-media__body">
+                                    <p class="slds-text-title--caps slds-line-height--reset">Survey</p>
+                                    <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="Create New Survey">Create New Survey</h1>
+                                </div>
+                            </div>
+                            <!-- / HEADING AREA -->
+                            
+                        </div>
+                        <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                            <apex:form >
+                                <div class="btn-group">
+                                    <apex:commandButton value="New Survey" action="{!URLFOR($Action.Survey__c.New)}" styleClass="btn btn-info"/>
+                                    <apex:commandButton value="Cancel" action="{!Cancel}" styleClass="btn btn-info"/>
+                                </div>
+                            </apex:form>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- Replace these pageblocks with pages TEST commit -->
+                <apex:form >
+                    
+                    <div class="container">
+                        
+                        
+                        <!-- Select the record type 
+                        <apex:pageblock title="Choose Survey Type" rendered="{!pageblock1}">
+                                <p>Type:
+                                        <apex:selectList size="1" value="{!strsurveyrecordtypeid}" styleClass="btn btn-default">
+                                            <apex:selectOptions value="{!surveytypes}"></apex:selectOptions>
+                                        </apex:selectList></p><br></br>
+                                <p>Name:<apex:inputtext value="{!strsurveyname}" required="true" styleClass="form-control"/></p><br></br>
+                            <apex:commandButton value="Continue" styleClass="btn btn-primary" action="{!afterchosensurveytype}"/>
+                        </apex:pageblock>
+                        -->
+                        
+                        <!--  For exam record set up -->
+                        <apex:pageblock title="For Exam Record Type" rendered="{!pageblock3}">
+                            <p>Number of Minutes:<apex:inputtext value="{!numberofminutes}" styleClass="form-control"/></p>
+                            <p>Number of Questions Per Test:<apex:inputText value="{!numberofquestions}" styleClass="form-control"/></p>
+                            <p>Randomized:<apex:inputCheckbox value="{!randomized}"/></p>
+                            <p>ShowScore:<apex:inputCheckbox value="{!showscore}"/></p>
+                            <p>Show one question at a time:<apex:inputCheckbox value="{!showonequestion}"/></p>
+                            <apex:commandButton value="Insert Survey" action="{!createsurvey}" styleClass="btn btn-primary"/>
+                        </apex:pageblock>
+                        
+                       
+                        <!-- create and add questions to the current survey/exam being made 
+                        <apex:pageblock title="Current Questions" rendered="{!pageblock2}">
+                         
+                            <apex:pageblockTable title="Current Questions" value="{!questions}" var="item">
+                                <apex:Column headervalue="Question" value="{!item.Question_Text__c}"/>
+                                <apex:column headervalue="Remove From Survey">
+                                    <apex:commandlink value="Remove" action="{!removequestion}">
+                                        <apex:param name="tempid" value="{!item.id}" assignTo="{!holdidfordelete}"/>
+                                    </apex:commandlink>
+                                </apex:column>
+                                
+                                <apex:column headervalue="Remove From Org">
+                                    <apex:commandlink value="Remove" action="{!removetotalquestion}">
+                                        <apex:param name="tempid" value="{!item.id}" assignTo="{!holdidfordelete}"/>
+                                    </apex:commandlink>
+                                </apex:column>
+                            </apex:pageblockTable>
+                            
+                            <apex:commandButton value="Make New Question" action="{!makenewquestion}" styleClass="btn btn-success"/>
+                            <apex:commandButton value="Link To Existing Question" action="{!linkquestion}" styleClass="btn btn-success"/>
+                        </apex:pageblock>
+                        
+                        
+                        
+                        
+                        
+                        <apex:pageblock title="Make new Question" rendered="{!pageblock4}">
+                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
+                            <apex:selectList size="1" value="{!questiontypeid}" styleClass="btn btn-default">
+                                <apex:selectOptions value="{!questiontypes}"></apex:selectOptions>
+                            </apex:selectList>
+                            <apex:commandButton value="Create" styleClass="btn btn-default" action="{!choosewhichquestiontypetocreate}"/>
+                        </apex:pageblock>
+                        
+                        
+                        <apex:pageblock title="New Multiple Choice Question" rendered="{!pageblock6}">
+                            <p>Question Text:<apex:inputText value="{!questiontext}"  required="true" styleClass="form-control"/></p>
+                            <p>Choice A:<apex:inputtext value="{!questiona}"  required="true" styleClass="form-control"/></p>
+                            <p>Choice B:<apex:inputtext value="{!questionb}"  required="true" styleClass="form-control"/></p>
+                            <p>Choice C:<apex:inputtext value="{!questionc}" styleClass="form-control"/></p>
+                            <p>Choice D:<apex:inputtext value="{!questiond}" styleClass="form-control"/></p>
+                            <p>Choice E:<apex:inputtext value="{!questione}" styleClass="form-control"/></p>
+                            <p>Correct Answer(only if exam chosen):<apex:inputText value="{!correctanswer}" styleClass="form-control"/></p>
+                            <apex:commandButton value="Insert Question" action="{!insertnewquestion}" styleClass="btn btn-default"/>
+                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
+                        </apex:pageblock>
+                        
+                        
+                        
+                        
+                     
+                        <apex:pageblock title="New Radio Button Question" rendered="{!pageblock7}">
+                            <p>Question Text:<apex:inputText value="{!questiontext}"  required="true" styleClass="form-control"/></p>
+                            <p>Choice A:<apex:inputtext value="{!questiona}" required="true"  styleClass="form-control"/></p>
+                            <p>Choice B:<apex:inputtext value="{!questionb}"  required="true" styleClass="form-control"/></p>
+                            <p>Choice C:<apex:inputtext value="{!questionc}" styleClass="form-control"/></p>
+                            <p>Choice D:<apex:inputtext value="{!questiond}" styleClass="form-control"/></p>
+                            <p>Choice E:<apex:inputtext value="{!questione}" styleClass="form-control"/></p>
+                            <p>Correct Answer(only if exam chosen):<apex:inputText value="{!correctanswer}" styleClass="form-control"/></p>
+                            <apex:commandButton value="Insert Question" action="{!insertnewquestion}" styleClass="btn btn-default"/>
+                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
+                        </apex:pageblock>
+                        
+                        
+                        
+                        
+                        
+                        <apex:pageblock title="New Short Answer Question" rendered="{!pageblock8}">
+                            <p>Question Text:<apex:inputText required="true" value="{!questiontext}"/></p>
+                            <apex:commandButton value="Insert Question" styleClass="btn btn-default" action="{!insertnewquestion}"/>
+                        </apex:pageblock>
+                        
+                        
+                        
+                      
+                        <apex:pageblock title="New True False Question" rendered="{!pageblock9}">
+                            <p>Question Text:<apex:inputText required="true" value="{!questiontext}" styleClass="form-control"/></p>
+                            
+                            <p>Correct Answer:<br></br>
+                        <apex:selectList size="1" value="{!truefalsequestionoutput}" styleClass="btn btn-info">
+                            <apex:selectOptions value="{!truefalsequestion}"></apex:selectOptions>
+                        </apex:selectList>
+                    </p>
+                    <apex:commandButton value="Insert Question" styleClass="btn btn-default" action="{!insertnewquestion}"/>
+                    <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
+                </apex:pageblock>
+             
+                <apex:pageblock title="Use Existing Question" rendered="{!pageblock5}">
+                    
+                    <apex:selectList size="1" value="{!oldquestionid}" styleClass="btn btn-default">
+                        <apex:selectOptions value="{!existingquestions}"></apex:selectOptions>
+                    </apex:selectList>
+                    <apex:commandButton value="Add Question" styleClass="btn btn-default" action="{!linktooldquestion}"/>
+                    <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
+                </apex:pageblock>
+        		-->
+    </div>
+    
+    
+</apex:form>
+
+</div>
+
+</body>
+</html>
+
+</apex:page>
