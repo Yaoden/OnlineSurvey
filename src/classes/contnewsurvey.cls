@@ -23,7 +23,7 @@ public class contnewsurvey {
 	public boolean showonequestion{
 		get;set;
 	}
-	/*
+	
 	public boolean pageblock1{
 		get;set;
 	}
@@ -51,7 +51,7 @@ public class contnewsurvey {
 	public boolean pageblock9{
 		get;set;
 	}
-	*/
+	
 	public string stroutputid{
 		get;set;
 	}
@@ -188,13 +188,13 @@ public class contnewsurvey {
 	}
 
 //decides what happens after the survey record type is chosen
-	public void afterchosensurveytype() {
+	public PageReference afterchosensurveytype() {
 		if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
 			return Page.ExamRecordType;
-		} else if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Survey').getRecordTypeId()) {
+		} //else if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Survey').getRecordTypeId()) {
 			return Page.QuestionsPage;
 			//createsurvey();
-		}
+		//}
 
 	}
 
