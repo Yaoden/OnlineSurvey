@@ -257,7 +257,7 @@
                             <p>Randomized:<apex:inputCheckbox value="{!randomized}"/></p>
                             <p>ShowScore:<apex:inputCheckbox value="{!showscore}"/></p>
                             <p>Show one question at a time:<apex:inputCheckbox value="{!showonequestion}"/></p>
-                            <apex:commandButton value="Create Survey" action="{!afterchosensurveytype}" styleClass="btn btn-primary"/>
+                            <apex:commandButton value="Create Exam" action="{!createsurvey}" styleClass="btn btn-primary"/>
                         </apex:pageblock>
  
 				    </div>

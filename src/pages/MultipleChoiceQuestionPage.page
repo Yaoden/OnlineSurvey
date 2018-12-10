@@ -261,8 +261,8 @@
                             <p>Choice D:<apex:inputtext value="{!questiond}" styleClass="form-control"/></p>
                             <p>Choice E:<apex:inputtext value="{!questione}" styleClass="form-control"/></p>
                             <p>Correct Answer(only if exam chosen):<apex:inputText value="{!correctanswer}" styleClass="form-control"/></p>
-                            <apex:commandButton value="Insert Question" action="{!insertnewquestion}" styleClass="btn btn-default"/>
-                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
+                            <apex:commandButton value="Create Question" action="{!insertnewquestion}" styleClass="btn btn-default"/>
+                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToCreateQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
                         </apex:pageblock>
 
 				    </div>

@@ -254,8 +254,8 @@
                        
                         <apex:pageblock title="New Short Answer Question">
                             <p>Question Text:<apex:inputText required="true" value="{!questiontext}"/></p>
-                            <apex:commandButton value="Insert Question" styleClass="btn btn-default" action="{!insertnewquestion}"/>
-                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
+                            <apex:commandButton value="Create Question" styleClass="btn btn-default" action="{!insertnewquestion}"/>
+                            <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToCreateQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
                         </apex:pageblock>
                         
                         

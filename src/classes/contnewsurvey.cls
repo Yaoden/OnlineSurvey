@@ -24,34 +24,6 @@ public class contnewsurvey {
 		get;set;
 	}
 	
-	public boolean pageblock1{
-		get;set;
-	}
-	public boolean pageblock2{
-		get;set;
-	}
-	public boolean pageblock3{
-		get;set;
-	}
-	public boolean pageblock4{
-		get;set;
-	}
-	public boolean pageblock5{
-		get;set;
-	}
-	public boolean pageblock6{
-		get;set;
-	}
-	public boolean pageblock7{
-		get;set;
-	}
-	public boolean pageblock8{
-		get;set;
-	}
-	public boolean pageblock9{
-		get;set;
-	}
-	
 	public string stroutputid{
 		get;set;
 	}
@@ -114,17 +86,6 @@ public class contnewsurvey {
 		//questionRecordTypes = Schema.SObjectType.Question__c.getRecordTypeInfosByName();
 		linkedquestionids = new list<String>();
 		list<Schema.RecordTypeInfo> templst = new list<Schema.RecordTypeInfo>();
-		/*
-		pageblock1 = true;
-		pageblock2 = false;
-		pageblock3 = false;
-		pageblock4 = false;
-		pageblock5 = false;
-		pageblock6 = false;
-		pageblock7 = false;
-		pageblock8 = false;
-		pageblock9 = false;
-		*/
 		questiontypes = new list<selectoption>();
 		
 		//Delete because it's called again when redirected to existingquestionspage
@@ -153,7 +114,7 @@ public class contnewsurvey {
 	}
 
 	//inserts new survey is dependant upon survey record type. ***NEEDS TO BE UPDATE***
-	public void createsurvey() {
+	public PageReference createsurvey() {
 		survey__c s = new survey__c();
 		s.Name = strsurveyname;
 		s.recordtypeid = strsurveyrecordtypeid;
@@ -164,11 +125,9 @@ public class contnewsurvey {
 			s.Randomized__c = randomized;
 			s.ShowScore__c = showscore;
 			s.ShowOneQuestion__c = showonequestion;
-			pageblock3 = false;
 		}
 		insert s;
 		stroutputid = s.id;
-		pageblock2 = true;
 
 		if (strsurveyrecordtypeid ==
 				Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
@@ -187,19 +146,21 @@ public class contnewsurvey {
 				}
 			}
 		}
+		
+		return Page.QuestionsPage;
 	}
 
-//decides what happens after the survey record type is chosen
+	//decides what happens after the survey record type is chosen
 	public PageReference afterchosensurveytype() {
 		if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
 			return Page.ExamRecordType;
-		} //else if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Survey').getRecordTypeId()) {
-			return Page.QuestionsPage;
-			//createsurvey();
-		//}
+		}
+		
+		return createsurvey();
 
 	}
-
+	
+	//Repopulates the questions list
 	public void questiontypes() {
 		Survey__c templst =
 		[SELECT id, (SELECT Question__c FROM SurveyJunction__r) FROM Survey__c where id =: stroutputid];
@@ -212,6 +173,10 @@ public class contnewsurvey {
 		questions = [select Question_Text__c, id from question__C where id in: questionIds ];
 	}
 
+	//returns to the create questions page
+	public PageReference goBackToCreateQuestions(){
+		return Page.NewQuestionsPage;
+	}
 
 	//returns to the questions page
 	public PageReference goBackToQuestions() {
@@ -247,19 +212,21 @@ public class contnewsurvey {
 		return questionPage;
 	}
 	//inserts the new question based on the question type
-	public void insertnewquestion() {
+	public PageReference insertnewquestion() {
 		question__c q = new question__c();
 		q.recordtypeid = questiontypeid;
+		
+		//error checking for empty question type
 		if (questionfortypestr == null || String.isBlank(questionfortypestr)) {
 			questionfortypestr = 'Survey';
 		}
-		if (strsurveyrecordtypeid ==
-				Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
+		
+		if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
 			q.questionfor__c = 'Exam';
-		}
-		if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Survey').getRecordTypeId()) {
+		}else if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Survey').getRecordTypeId()) {
 			q.questionfor__c = 'Survey';
 		}
+		
 		q.question_text__c = questiontext;
 		questiontext = '';
 		if (questiontypeid == Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('Multiple Choice').getRecordTypeId() || questiontypeid == Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('Radio').getRecordTypeId()) {
@@ -277,28 +244,22 @@ public class contnewsurvey {
 			questione = '';
 			correctanswer = '';
 
-		}
-		if (questiontypeid == Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('True/False').getRecordTypeId()) {
+		}else if (questiontypeid == Schema.SObjectType.Question__c.getRecordTypeInfosByName().get('True/False').getRecordTypeId()) {
 			//true false
 			q.correctanswer__c = truefalsequestionoutput;
 		}
+		
 		insert q;
 		surveyjoinquestion__c sjq = new surveyjoinquestion__c();
 		sjq.question__c = q.id;
 		sjq.survey__c = stroutputid;
 		insert sjq;
 		linkedquestionids.add(q.id);
-
-		pageblock2 = true;
-		pageblock3 = false;
-		pageblock4 = false;
-		pageblock5 = false;
-		pageblock6 = false;
-		pageblock7 = false;
-		pageblock8 = false;
-		pageblock9 = false;
+		
 		questiontypes();
 
+		return goBackToQuestions();
+		
 	}
 	//links to the an old question that was queried
 	public void linktooldquestion() {
@@ -310,20 +271,13 @@ public class contnewsurvey {
 
 
 		questiontypes();
-		/*
-		pageblock4 = false;
-		pageblock5 = false;
-		pageblock9 = false;
-		pageblock2 = true;
-		*/
 
 	}
 	//gets all the old questions, called in multiple places
 	public void oldquestionsgetter() {
 		existingquestions = new list<selectoption>();
 		existingquestions.clear();
-		if (strsurveyrecordtypeid ==
-				Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
+		if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
 			//exam record type id
 			list<question__c> templst =
 			[select question_text__c , id, questionfor__c from question__c where questionfor__c = 'Exam' and id !=: linkedquestionids];
@@ -331,8 +285,7 @@ public class contnewsurvey {
 
 				existingquestions.add(new SelectOption(qc.Id, qc.question_text__c));
 			}
-		}
-		if (strsurveyrecordtypeid ==
+		}else if (strsurveyrecordtypeid ==
 				Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Survey').getRecordTypeId()) {
 			//survey record type id
 			list<question__c> templst =
@@ -343,7 +296,7 @@ public class contnewsurvey {
 			}
 		}
 	}
-//removes question from the survey
+	//removes question from the survey
 	public void removequestion() {
 		//surveyjoinquestion__c sjq = [select id, question__c, survey__c from surveyjoinquestion__c where question__c = 'holdidfordelete' AND survey__c =: stroutputid];
 		system.debug(holdidfordelete);
@@ -356,10 +309,10 @@ public class contnewsurvey {
 	}
 	//removes question from the survey and from the database( removes junction object and question object)
 	public void removetotalquestion() {
+		removequestion();
 		question__c qc = new question__c();
 		qc.id = holdidfordelete;
 		delete qc;
-		removequestion();
 	}
 
 }
