@@ -262,7 +262,7 @@ public class contnewsurvey {
 		
 	}
 	//links to the an old question that was queried
-	public void linktooldquestion() {
+	public PageReference linktooldquestion() {
 		surveyjoinquestion__c sjq = new surveyjoinquestion__c();
 		sjq.question__c = oldquestionid;
 		sjq.survey__c = stroutputid;
@@ -271,7 +271,8 @@ public class contnewsurvey {
 
 
 		questiontypes();
-
+		
+		return goBackToQuestions();
 	}
 	//gets all the old questions, called in multiple places
 	public void oldquestionsgetter() {

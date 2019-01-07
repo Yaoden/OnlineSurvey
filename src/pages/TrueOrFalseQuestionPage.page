@@ -227,7 +227,7 @@
                                 </div>
                                 <div class="slds-media__body">
                                     <p class="slds-text-title--caps slds-line-height--reset">Survey</p>
-                                    <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="Create New Survey">Create New Survey</h1>
+                                    <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="Create New Survey">True or False Question</h1>
                                 </div>
                             </div>
                             <!-- / HEADING AREA -->
@@ -236,8 +236,7 @@
                         <div class="slds-col slds-no-flex slds-grid slds-align-top">
                             <apex:form >
                                 <div class="btn-group">
-                                    <apex:commandButton value="New Survey" action="{!URLFOR($Action.Survey__c.New)}" styleClass="btn btn-info"/>
-                                    <apex:commandButton value="Cancel" action="{!Cancel}" styleClass="btn btn-info"/>
+                                    <apex:commandButton value="Return" action="{!Cancel}" styleClass="btn btn-info"/>
                                 </div>
                             </apex:form>
                         </div>
