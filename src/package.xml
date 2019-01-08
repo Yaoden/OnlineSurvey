@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>*</members>
@@ -70,6 +70,7 @@
         <name>CustomMetadata</name>
     </types>
     <types>
+        <members>*</members>
         <members>Account</members>
         <members>AccountCleanInfo</members>
         <members>AccountContactRole</members>
@@ -128,7 +129,6 @@
         <members>TopicAssignment</members>
         <members>User</members>
         <members>UserProvisioningRequest</members>
-        <members>*</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -156,8 +156,15 @@
         <name>DataCategoryGroup</name>
     </types>
     <types>
+        <members>OnlineSurveyProject</members>
+        <members>OnlineSurveyProject/ExamResponseContactTemplate</members>
+        <members>OnlineSurveyProject/SurveyResponseContactTemplate</members>
+        <members>OnlineSurveyProject/SurveyResponseContactTemplateTesting</members>
         <members>unfiled$public</members>
         <members>unfiled$public/MarketingProductInquiryResponse</members>
+        <members>unfiled$public/SUPPORTSelfServiceNewCommentNotificationSAMPLE</members>
+        <members>unfiled$public/SUPPORTSelfServiceNewUserLoginInformationSAMPLE</members>
+        <members>unfiled$public/SUPPORTSelfServiceResetPasswordSAMPLE</members>
         <members>unfiled$public/SalesNewCustomerEmail</members>
         <members>unfiled$public/SupportCaseAssignmentNotification</members>
         <members>unfiled$public/SupportCaseCreatedPhoneInquiries</members>
@@ -165,15 +172,8 @@
         <members>unfiled$public/SupportCaseResponse</members>
         <members>unfiled$public/SupportEscalatedCaseNotification</members>
         <members>unfiled$public/SupportEscalatedCaseReassignment</members>
-        <members>unfiled$public/SUPPORTSelfServiceNewCommentNotificationSAMPLE</members>
         <members>unfiled$public/SupportSelfServiceNewLoginandPassword</members>
-        <members>unfiled$public/SUPPORTSelfServiceNewUserLoginInformationSAMPLE</members>
         <members>unfiled$public/SupportSelfServiceResetPassword</members>
-        <members>unfiled$public/SUPPORTSelfServiceResetPasswordSAMPLE</members>
-        <members>OnlineSurveyProject</members>
-        <members>OnlineSurveyProject/ExamResponseContactTemplate</members>
-        <members>OnlineSurveyProject/SurveyResponseContactTemplate</members>
-        <members>OnlineSurveyProject/SurveyResponseContactTemplateTesting</members>
         <name>EmailTemplate</name>
     </types>
     <types>
@@ -234,15 +234,15 @@
     </types>
     <types>
         <members>unfiled$public</members>
-        <members>unfiled$public/all_Score_Distribution</members>
-        <members>unfiled$public/Answers_by_question</members>
         <members>unfiled$public/Answers_by_Question_by_Survey</members>
         <members>unfiled$public/Answers_by_Question_by_Survey1</members>
+        <members>unfiled$public/Answers_by_question</members>
         <members>unfiled$public/Exam_Scores</members>
         <members>unfiled$public/Exam_Scores1</members>
         <members>unfiled$public/Number_of_Correct_Answers</members>
-        <members>unfiled$public/scores_filtered_by_surveyId</members>
         <members>unfiled$public/Scores_for_contacts_by_Exam</members>
+        <members>unfiled$public/all_Score_Distribution</members>
+        <members>unfiled$public/scores_filtered_by_surveyId</members>
         <name>Report</name>
     </types>
     <types>
@@ -263,10 +263,6 @@
     </types>
     <types>
         <members>*</members>
-        <name>Settings</name>
-    </types>
-    <types>
-        <members>*</members>
         <name>SharingSet</name>
     </types>
     <types>
@@ -280,6 +276,10 @@
     <types>
         <members>*</members>
         <name>Workflow</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Settings</name>
     </types>
     <version>38.0</version>
 </Package>

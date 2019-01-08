@@ -257,7 +257,7 @@
                             <p>Choice D:<apex:inputtext value="{!questiond}" styleClass="form-control"/></p>
                             <p>Choice E:<apex:inputtext value="{!questione}" styleClass="form-control"/></p>
                         </apex:pageblock>
-						<apex:pageblock>
+						<apex:pageblock >
 	                        <p>Correct Answer:<apex:inputText value="{!correctanswer}" styleClass="form-control"/></p>
                             <apex:commandButton value="Create Question" action="{!insertnewquestion}" styleClass="btn btn-default"/>
                             <apex:commandButton value="Back" styleClass="btn btn-danger" action="{!goBackToCreateQuestions}" immediate="true" html-formnovalidate="formnovalidate" />
