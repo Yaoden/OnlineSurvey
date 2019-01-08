@@ -88,9 +88,7 @@ public class contnewsurvey {
 		list<Schema.RecordTypeInfo> templst = new list<Schema.RecordTypeInfo>();
 		questiontypes = new list<selectoption>();
 		
-		//Delete because it's called again when redirected to existingquestionspage
-		oldquestionsgetter();
-		
+			
 		//sets up the options for true/false questions
 		truefalsequestion = new list<selectoption>();
 		truefalsequestion.add(new selectoption('True','True'));
@@ -101,6 +99,14 @@ public class contnewsurvey {
 		questionfortype.add(new selectoption('Survey', 'Survey'));
 		questionfortype.add(new selectoption('Exam', 'Exam'));
 		surveytypes = new list<SelectOption>();
+		
+		//called when new question is being created
+		if(stdcontroller.getId() != null){
+			stroutputid = stdcontroller.getId();
+			strsurveyrecordtypeid = [select recordTypeId from survey__c where id =: stroutputid].recordTypeId;
+			createQuestionTypes();
+		}
+		
 		if (stroutputid != null) {
 			questiontypes();
 		}
@@ -118,8 +124,7 @@ public class contnewsurvey {
 		survey__c s = new survey__c();
 		s.Name = strsurveyname;
 		s.recordtypeid = strsurveyrecordtypeid;
-		if (strsurveyrecordtypeid ==
-				Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
+		if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
 			s.NumberofMinutes__c = numberofminutes;
 			s.NumberofQuestions__c = numberofquestions;
 			s.Randomized__c = randomized;
@@ -129,25 +134,28 @@ public class contnewsurvey {
 		insert s;
 		stroutputid = s.id;
 
-		if (strsurveyrecordtypeid ==
-				Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
+		createQuestionTypes();
+		
+		return Page.QuestionsPage;
+	}
 
+
+	public void createQuestionTypes(){
+		if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Exam').getRecordTypeId()) {
 
 			for (Schema.RecordTypeInfo r:Schema.SObjectType.Question__c.getRecordTypeInfos()) {
 				if (r.getName() != 'Short Answer' && r.getName() != 'Master') {
 					questiontypes.add(new selectoption(r.getRecordTypeId(), r.getName()));
 				}
 			}
-		} else if (strsurveyrecordtypeid ==
-				Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Survey').getRecordTypeId()) {
+		} else if (strsurveyrecordtypeid == Schema.SObjectType.Survey__c.getRecordTypeInfosByName().get('Survey').getRecordTypeId()) {
+			
 			for (Schema.RecordTypeInfo r:Schema.SObjectType.Question__c.getRecordTypeInfos()) {
 				if (r.getName() != 'Master') {
 					questiontypes.add(new selectoption(r.getRecordTypeId(), r.getName()));
 				}
 			}
 		}
-		
-		return Page.QuestionsPage;
 	}
 
 	//decides what happens after the survey record type is chosen

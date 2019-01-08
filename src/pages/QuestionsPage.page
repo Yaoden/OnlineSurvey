@@ -261,7 +261,7 @@
                                 </apex:column>
                             </apex:pageblockTable>
                             
-                            <apex:commandButton value="New Question" action="{!makenewquestion}" styleClass="btn btn-success"/>
+                            <apex:commandButton value="New Question" action="{!goBackToCreateQuestions}" styleClass="btn btn-success"/>
                             <apex:commandButton value="Choose Existing Question" action="{!linkquestion}" styleClass="btn btn-success"/>
                         </apex:pageblock>
 
