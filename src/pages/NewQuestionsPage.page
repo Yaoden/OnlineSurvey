@@ -236,7 +236,7 @@
                         <div class="slds-col slds-no-flex slds-grid slds-align-top">
                             <apex:form >
                                 <div class="btn-group">
-                                    <apex:commandButton value="Return" action="{!Cancel}" styleClass="btn btn-info"/>
+                                    <apex:commandButton value="Return" action="{!goBackToQuestions}" styleClass="btn btn-info"/>
                                 </div>
                             </apex:form>
                         </div>

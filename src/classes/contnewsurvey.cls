@@ -182,10 +182,12 @@ public class contnewsurvey {
 	public PageReference goBackToQuestions() {
 		return Page.QuestionsPage;
 	}
+	/*
 	//redirects to the new question page
 	public PageReference makenewquestion() {
 		return Page.NewQuestionsPage;
 	}
+	*/
 	//redirects to the existing questions page
 	public PageReference linkquestion() {
 		//populates list of already existing questions from the SF database
